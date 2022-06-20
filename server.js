@@ -17,7 +17,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 // Respond with 'Hello World' when a GET request is made to the homepage
-app.get('/', function (_req, res) {
+app.get('/', function(_req, res) {
   res.send('Hello World');
 });
 
@@ -96,68 +96,69 @@ function handleMessage(senderPsid, receivedMessage) {
     // response = {
     //   'text': `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
     // };
-      response = {
-        'message':{
-      'attachment': {
-        'type': 'template',
-        'payload': {
-          'template_type': 'generic',
-          'elements': [{
-            'title': 'Please select',
-            'subtitle': 'Tap a button to answer.',
-            'image_url': 'https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/288480150_101475515952037_7111218912266425825_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Z8yO2ImK76oAX--3_-O&_nc_ht=scontent.fmnl8-1.fna&oh=00_AT_sDrSPVeIJbbhzuS02cqYqESsYdm6dibRV4R3YQiEULQ&oe=62B5964F',
-            'buttons': [
-              {
-                'type': 'postback',
-                'title': 'Schedule an appointment.',
-                'payload': 'yes',
-              },
-              {
-                'type': 'postback',
-                'title': 'Show branches',
-                'payload': 'no',
-              }
-            ],
-          }]
+    response = {
+      'message': {
+        'attachment': {
+          'type': 'template',
+          'payload': {
+            'template_type': 'generic',
+            'elements': [{
+              'title': 'Please select',
+              'subtitle': 'Tap a button to answer.',
+              'image_url': 'https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/288480150_101475515952037_7111218912266425825_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Z8yO2ImK76oAX--3_-O&_nc_ht=scontent.fmnl8-1.fna&oh=00_AT_sDrSPVeIJbbhzuS02cqYqESsYdm6dibRV4R3YQiEULQ&oe=62B5964F',
+              'buttons': [
+                {
+                  'type': 'postback',
+                  'title': 'Schedule an appointment.',
+                  'payload': 'yes',
+                },
+                {
+                  'type': 'postback',
+                  'title': 'Show branches',
+                  'payload': 'no',
+                }
+              ],
+            }]
+          }
         }
       }
     }
-      }
   }
+}
 
-  // } else if (receivedMessage.attachments) {
-  //
-  //   // Get the URL of the message attachment
-  //   let attachmentUrl = receivedMessage.attachments[0].payload.url;
-  //   response = {
-  //     'attachment': {
-  //       'type': 'template',
-  //       'payload': {
-  //         'template_type': 'generic',
-  //         'elements': [{
-  //           'title': 'Is this the right picture?',
-  //           'subtitle': 'Tap a button to answer.',
-  //           'image_url': attachmentUrl,
-  //           'buttons': [
-  //             {
-  //               'type': 'postback',
-  //               'title': 'Yes!',
-  //               'payload': 'yes',
-  //             },
-  //             {
-  //               'type': 'postback',
-  //               'title': 'No!',
-  //               'payload': 'no',
-  //             }
-  //           ],
-  //         }]
-  //       }
-  //     }
-  //   };
-  // }
+// } else if (receivedMessage.attachments) {
+//
+//   // Get the URL of the message attachment
+//   let attachmentUrl = receivedMessage.attachments[0].payload.url;
+//   response = {
+//     'attachment': {
+//       'type': 'template',
+//       'payload': {
+//         'template_type': 'generic',
+//         'elements': [{
+//           'title': 'Is this the right picture?',
+//           'subtitle': 'Tap a button to answer.',
+//           'image_url': attachmentUrl,
+//           'buttons': [
+//             {
+//               'type': 'postback',
+//               'title': 'Yes!',
+//               'payload': 'yes',
+//             },
+//             {
+//               'type': 'postback',
+//               'title': 'No!',
+//               'payload': 'no',
+//             }
+//           ],
+//         }]
+//       }
+//     }
+//   };
+// }
 
-  // Send the response message
-  callSendAPI(senderPsid, response);
+// Send the response message
+callSendAPI(senderPsid, response);
 }
 
 // Handles messaging_postbacks events
