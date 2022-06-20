@@ -91,7 +91,7 @@ function handleMessage(senderPsid, receivedMessage) {
   let response;
 
   // Checks if the message contains text
-  if (receivedMessage.message) {
+  if (receivedMessage.text) {
 
     // Get the URL of the message attachment
     response = {
