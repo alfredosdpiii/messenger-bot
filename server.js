@@ -17,7 +17,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 // Respond with 'Hello World' when a GET request is made to the homepage
-app.get('/', function(_req, res) {
+app.get('/', function (_req, res) {
   res.send('Hello World');
 });
 
@@ -91,21 +91,37 @@ function handleMessage(senderPsid, receivedMessage) {
 
   // Checks if the message contains text
   if (receivedMessage.text) {
+    // Create the payload for a basic text message, which
+    // will be added to the body of your request to the Send API
+    response = {
+      'text': `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
+    };
+  } else if (receivedMessage.attachments) {
 
     // Get the URL of the message attachment
+    let attachmentUrl = receivedMessage.attachments[0].payload.url;
     response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "button",
-          "text": "Try the postback button!",
-          "buttons": [
-            {
-              "type": "postback",
-              "title": "Postback Button",
-              "payload": "yes"
-            }
-          ]
+      'attachment': {
+        'type': 'template',
+        'payload': {
+          'template_type': 'generic',
+          'elements': [{
+            'title': 'Is this the right picture?',
+            'subtitle': 'Tap a button to answer.',
+            'image_url': attachmentUrl,
+            'buttons': [
+              {
+                'type': 'postback',
+                'title': 'Yes!',
+                'payload': 'yes',
+              },
+              {
+                'type': 'postback',
+                'title': 'No!',
+                'payload': 'no',
+              }
+            ],
+          }]
         }
       }
     };
@@ -124,9 +140,9 @@ function handlePostback(senderPsid, receivedPostback) {
 
   // Set the response based on the postback payload
   if (payload === 'yes') {
-    response = { 'text': 'click this link!' };
+    response = { 'text': 'Thanks!' };
   } else if (payload === 'no') {
-    response = { 'text': 'address here' };
+    response = { 'text': 'Oops, try sending another image.' };
   }
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response);
