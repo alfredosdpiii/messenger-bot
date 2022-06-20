@@ -169,12 +169,12 @@ function handlePostback(senderPsid, receivedPostback) {
       }
     }
     // Send the message to acknowledge the postback
-    callSendAPI(senderPsid, response);
   }else if(payload === 'Schedule1'){
     response = { 'text': 'https://goo.gl/maps/QaYsQ8QcANZaHcUh9' };
   }else if(payload === 'Schedule2'){
     response = { 'text': 'https://goo.gl/maps/XGYcpzcXneKgYkXh6' };
   }
+    callSendAPI(senderPsid, response);
 }
 
   // Sends response messages via the Send API
