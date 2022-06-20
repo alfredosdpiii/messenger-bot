@@ -168,7 +168,7 @@ function handlePostback(senderPsid, receivedPostback) {
   // Set the response based on the postback payload
   if (payload === 'Schedule') {
     response = { 'text': 'click this link bitch!' };
-  } else if (payload === 'Branch') {
+  } else if (payload === 'Show branches') {
     response = { 'text': `Here's our branches` };
   }
   // Send the message to acknowledge the postback
