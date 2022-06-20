@@ -109,26 +109,18 @@ function handleMessage(senderPsid, receivedMessage) {
               {
                 'type': 'postback',
                 'title': 'Schedule an appointment.',
-                'payload': 'schedule',
+                'payload': 'yes',
               },
               {
                 'type': 'postback',
                 'title': 'Show branches',
-                'payload': 'branch',
+                'payload': 'no',
               }
             ],
           }]
         }
       }
     }
-  }else if(receivedMessage.text === "Show branches"){
-    response = {
-      'text': `Here's our branches awhudhwaudha`
-    };
-  }else if(receivedMessage.text === "Schedule an appointment..."){
-    response = {
-      'text': `Click this link`
-    };
   }
 
   // } else if (receivedMessage.attachments) {
@@ -175,9 +167,9 @@ function handlePostback(senderPsid, receivedPostback) {
   console.log(payload)
 
   // Set the response based on the postback payload
-  if (payload === 'schedule') {
+  if (payload === 'yes') {
     response = { 'text': 'click this link!' };
-  } else if (payload === 'branches') {
+  } else if (payload === 'no') {
     response = { 'text': `Here's our branches` };
   }
   // Send the message to acknowledge the postback
