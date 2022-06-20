@@ -100,7 +100,7 @@ function handleMessage(senderPsid, receivedMessage) {
         'payload': {
           'template_type': 'generic',
           'elements': [{
-            'title': 'Is this the right picture?',
+            'title': 'Please select a button?',
             'subtitle': 'Tap a button to answer.',
             'image_url': 'https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/288480150_101475515952037_7111218912266425825_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Z8yO2ImK76oAX--3_-O&_nc_ht=scontent.fmnl8-1.fna&oh=00_AT_sDrSPVeIJbbhzuS02cqYqESsYdm6dibRV4R3YQiEULQ&oe=62B5964F',
             'buttons': [
