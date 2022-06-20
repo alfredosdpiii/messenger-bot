@@ -17,7 +17,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 // Respond with 'Hello World' when a GET request is made to the homepage
-app.get('/', function (_req, res) {
+app.get('/', function(_req, res) {
   res.send('Hello World');
 });
 
@@ -94,27 +94,20 @@ function handleMessage(senderPsid, receivedMessage) {
 
     // Get the URL of the message attachment
     response = {
-      'attachment': {
-        'type': 'template',
-        'payload': {
-          'template_type': 'generic',
-          'elements': [{
-            'title': 'Please select',
-            'subtitle': 'Tap a button to answer.',
-            'image_url': 'https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/288480150_101475515952037_7111218912266425825_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Z8yO2ImK76oAX--3_-O&_nc_ht=scontent.fmnl8-1.fna&oh=00_AT_sDrSPVeIJbbhzuS02cqYqESsYdm6dibRV4R3YQiEULQ&oe=62B5964F',
-            'buttons': [
+      "message": {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "button",
+            "text": "Try the postback button!",
+            "buttons": [
               {
-                'type': 'postback',
-                'title': 'Schedule',
-                'payload': 'yes',
-              },
-              {
-                'type': 'postback',
-                'title': 'Braches',
-                'payload': 'no',
+                "type": "postback",
+                "title": "Postback Button",
+                "payload": "yes"
               }
-            ],
-          }]
+            ]
+          }
         }
       }
     };
