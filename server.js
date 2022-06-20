@@ -71,8 +71,8 @@ app.post('/webhook', (req, res) => {
       // pass the event to the appropriate handler function
       if (webhookEvent.message) {
         handleMessage(senderPsid, webhookEvent.message);
-      } else if (webhookEvent.postback) {
-        handlePostback(senderPsid, webhookEvent.postback);
+      } else if (webhookEvent.messaging_postbacks) {
+        handlePostback(senderPsid, webhookEvent.messaging_postbacks);
       }
     });
 
@@ -132,21 +132,22 @@ function handleMessage(senderPsid, receivedMessage) {
 }
 
 // Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {
+function handlePostback(senderPsid, receivedPostback) {
   let response;
-  
+
   // Get the payload for the postback
-  let payload = received_postback.payload;
+  let payload = receivedPostback.payload;
 
   // Set the response based on the postback payload
   if (payload === 'yes') {
-    response = { "text": "Thanks!" }
+    response = { 'text': 'Thanks!' };
   } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
+    response = { 'text': 'Oops, try sending another image.' };
   }
   // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
+  callSendAPI(senderPsid, response);
 }
+
 // Sends response messages via the Send API
 function callSendAPI(senderPsid, response) {
 
