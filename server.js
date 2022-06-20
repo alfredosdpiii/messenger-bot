@@ -109,12 +109,12 @@ function handleMessage(senderPsid, receivedMessage) {
               {
                 'type': 'postback',
                 'title': 'Schedule an appointment.',
-                'payload': 'Schedule',
+                'payload': 'schedule',
               },
               {
                 'type': 'postback',
                 'title': 'Show branches',
-                'payload': 'Branch',
+                'payload': 'branch',
               }
             ],
           }]
@@ -166,9 +166,9 @@ function handlePostback(senderPsid, receivedPostback) {
   let payload = receivedPostback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'Schedule') {
+  if (payload === 'schedule') {
     response = { 'text': 'click this link bitch!' };
-  } else if (payload === 'Show branches') {
+  } else if (payload === 'branches') {
     response = { 'text': `Here's our branches` };
   }
   // Send the message to acknowledge the postback
