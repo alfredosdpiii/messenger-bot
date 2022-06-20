@@ -17,7 +17,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 // Respond with 'Hello World' when a GET request is made to the homepage
-app.get('/', function (_req, res) {
+app.get('/', function(_req, res) {
   res.send('Hello World');
 });
 
@@ -69,6 +69,7 @@ app.post('/webhook', (req, res) => {
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
+      console.log(webhookEvent.postback)
       if (webhookEvent.message) {
         handleMessage(senderPsid, webhookEvent.message);
       } else if (webhookEvent.postback) {
@@ -90,13 +91,7 @@ function handleMessage(senderPsid, receivedMessage) {
   let response;
 
   // Checks if the message contains text
-  if (receivedMessage.text) {
-    // Create the payload for a basic text message, which
-    // will be added to the body of your request to the Send API
-    response = {
-      'text': `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
-    };
-  } else if (receivedMessage.attachments) {
+  if (receivedMessage.message) {
 
     // Get the URL of the message attachment
     let attachmentUrl = receivedMessage.attachments[0].payload.url;
@@ -108,16 +103,16 @@ function handleMessage(senderPsid, receivedMessage) {
           'elements': [{
             'title': 'Is this the right picture?',
             'subtitle': 'Tap a button to answer.',
-            'image_url': attachmentUrl,
+            'image_url': 'https://scontent.fmnl8-1.fna.fbcdn.net/v/t39.30808-6/288480150_101475515952037_7111218912266425825_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Z8yO2ImK76oAX--3_-O&_nc_ht=scontent.fmnl8-1.fna&oh=00_AT_sDrSPVeIJbbhzuS02cqYqESsYdm6dibRV4R3YQiEULQ&oe=62B5964F',
             'buttons': [
               {
                 'type': 'postback',
-                'title': 'Yes!',
+                'title': 'Schedule!',
                 'payload': 'yes',
               },
               {
                 'type': 'postback',
-                'title': 'No!',
+                'title': 'Locations',
                 'payload': 'no',
               }
             ],
@@ -140,9 +135,9 @@ function handlePostback(senderPsid, receivedPostback) {
 
   // Set the response based on the postback payload
   if (payload === 'yes') {
-    response = { 'text': 'Thanks!' };
+    response = { 'text': 'Fuck rails!' };
   } else if (payload === 'no') {
-    response = { 'text': 'Oops, try sending another image.' };
+    response = { 'text': 'Rails is dead' };
   }
   // Send the message to acknowledge the postback
   callSendAPI(senderPsid, response);
