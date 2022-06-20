@@ -136,42 +136,72 @@ function handlePostback(senderPsid, receivedPostback) {
   if (payload === 'yes') {
     response = { 'text': 'Fuck rails!' };
   } else if (payload === 'no') {
-    response = { 'text': 'Rails is dead' };
-  }
-  // Send the message to acknowledge the postback
-  callSendAPI(senderPsid, response);
-}
-
-// Sends response messages via the Send API
-function callSendAPI(senderPsid, response) {
-
-  // The page access token we have generated in your app settings
-  const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-
-  // Construct the message body
-  let requestBody = {
-    'recipient': {
-      'id': senderPsid
-    },
-    'message': response
-  };
-
-  // Send the HTTP request to the Messenger Platform
-  request({
-    'uri': 'https://graph.facebook.com/v2.6/me/messages',
-    'qs': { 'access_token': PAGE_ACCESS_TOKEN },
-    'method': 'POST',
-    'json': requestBody
-  }, (err, _res, _body) => {
-    if (!err) {
-      console.log('Message sent!');
-    } else {
-      console.error('Unable to send message:' + err);
+    response = {
+      'attachment': {
+        'type': 'template',
+        'payload': {
+          'template_type': 'generic',
+          'elements': [{
+            'title': 'Please select a button?',
+            'subtitle': 'Tap a button to answer.',
+            'image_url': 'https://preview.redd.it/ilrnf174s7291.png?auto=webp&s=7b46a8c013080a4ed6ba995129fdc3babd4a7226',
+            'buttons': [
+              {
+                'type': 'postback',
+                'title': 'Branch 1!',
+                'payload': 'yes',
+              },
+            ],
+          }, {
+            'title': 'Please select a button?',
+            'subtitle': 'Tap a button to answer.',
+            'image_url': 'https://preview.redd.it/ilrnf174s7291.png?auto=webp&s=7b46a8c013080a4ed6ba995129fdc3babd4a7226',
+            'buttons': [
+              {
+                'type': 'postback',
+                'title': 'Branch 2!',
+                'payload': 'Schedule2',
+              },
+            ],
+          }
+          ]
+        }
+      }
     }
-  });
-}
+    // Send the message to acknowledge the postback
+    callSendAPI(senderPsid, response);
+  }
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function() {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+  // Sends response messages via the Send API
+  function callSendAPI(senderPsid, response) {
+
+    // The page access token we have generated in your app settings
+    const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
+    // Construct the message body
+    let requestBody = {
+      'recipient': {
+        'id': senderPsid
+      },
+      'message': response
+    };
+
+    // Send the HTTP request to the Messenger Platform
+    request({
+      'uri': 'https://graph.facebook.com/v2.6/me/messages',
+      'qs': { 'access_token': PAGE_ACCESS_TOKEN },
+      'method': 'POST',
+      'json': requestBody
+    }, (err, _res, _body) => {
+      if (!err) {
+        console.log('Message sent!');
+      } else {
+        console.error('Unable to send message:' + err);
+      }
+    });
+  }
+
+  // listen for requests :)
+  var listener = app.listen(process.env.PORT, function() {
+    console.log('Your app is listening on port ' + listener.address().port);
+  });
