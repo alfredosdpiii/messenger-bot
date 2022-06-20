@@ -97,6 +97,7 @@ function handleMessage(senderPsid, receivedMessage) {
     //   'text': `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
     // };
       response = {
+        'message':{
       'attachment': {
         'type': 'template',
         'payload': {
@@ -121,6 +122,7 @@ function handleMessage(senderPsid, receivedMessage) {
         }
       }
     }
+      }
   }
 
   // } else if (receivedMessage.attachments) {
