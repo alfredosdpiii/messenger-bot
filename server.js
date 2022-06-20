@@ -94,20 +94,18 @@ function handleMessage(senderPsid, receivedMessage) {
 
     // Get the URL of the message attachment
     response = {
-      "message": {
-        "attachment": {
-          "type": "template",
-          "payload": {
-            "template_type": "button",
-            "text": "Try the postback button!",
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Postback Button",
-                "payload": "yes"
-              }
-            ]
-          }
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": "Try the postback button!",
+          "buttons": [
+            {
+              "type": "postback",
+              "title": "Postback Button",
+              "payload": "yes"
+            }
+          ]
         }
       }
     };
