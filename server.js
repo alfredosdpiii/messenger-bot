@@ -17,7 +17,7 @@ app.use(urlencoded({ extended: true }));
 app.use(json());
 
 // Respond with 'Hello World' when a GET request is made to the homepage
-app.get('/', function(_req, res) {
+app.get('/', function (_req, res) {
   res.send('Hello World');
 });
 
@@ -93,9 +93,12 @@ function handleMessage(senderPsid, receivedMessage) {
   if (receivedMessage.text) {
     // Create the payload for a basic text message, which
     // will be added to the body of your request to the Send API
-    // response = {
-    //   'text': `You sent the message: '${receivedMessage.text}'. Now send me an attachment!`
-    // };
+    response = {
+      'text': `Please say hello`
+    };
+  } else if (receivedMessage.text === 'hello') {
+
+    // Get the URL of the message attachment
     response = {
       'attachment': {
         'type': 'template',
@@ -108,104 +111,72 @@ function handleMessage(senderPsid, receivedMessage) {
             'buttons': [
               {
                 'type': 'postback',
-                'title': 'Schedule an appointment.',
+                'title': 'Schedule',
                 'payload': 'yes',
               },
               {
                 'type': 'postback',
-                'title': 'Show branches',
+                'title': 'Braches',
                 'payload': 'no',
               }
             ],
           }]
         }
       }
-    }
-  }
-
-    // } else if (receivedMessage.attachments) {
-    //
-    //   // Get the URL of the message attachment
-    //   let attachmentUrl = receivedMessage.attachments[0].payload.url;
-    //   response = {
-    //     'attachment': {
-    //       'type': 'template',
-    //       'payload': {
-    //         'template_type': 'generic',
-    //         'elements': [{
-    //           'title': 'Is this the right picture?',
-    //           'subtitle': 'Tap a button to answer.',
-    //           'image_url': attachmentUrl,
-    //           'buttons': [
-    //             {
-    //               'type': 'postback',
-    //               'title': 'Yes!',
-    //               'payload': 'yes',
-    //             },
-    //             {
-    //               'type': 'postback',
-    //               'title': 'No!',
-    //               'payload': 'no',
-    //             }
-    //           ],
-    //         }]
-    //       }
-    //     }
-    //   };
-    // }
-
-    // Send the response message
-    callSendAPI(senderPsid, response);
-  }
-
-  // Handles messaging_postbacks events
-  function handlePostback(senderPsid, receivedPostback) {
-    let response;
-
-    // Get the payload for the postback
-    let payload = receivedPostback.payload;
-    console.log(payload)
-
-    // Set the response based on the postback payload
-    if (payload === 'yes') {
-      response = { 'text': 'click this link!' };
-    } else if (payload === 'no') {
-      response = { 'text': `Here's our branches` };
-    }
-    // Send the message to acknowledge the postback
-    callSendAPI(senderPsid, response);
-  }
-
-  // Sends response messages via the Send API
-  function callSendAPI(senderPsid, response) {
-
-    // The page access token we have generated in your app settings
-    const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-
-    // Construct the message body
-    let requestBody = {
-      'recipient': {
-        'id': senderPsid
-      },
-      'message': response
     };
-
-    // Send the HTTP request to the Messenger Platform
-    request({
-      'uri': 'https://graph.facebook.com/v2.6/me/messages',
-      'qs': { 'access_token': PAGE_ACCESS_TOKEN },
-      'method': 'POST',
-      'json': requestBody
-    }, (err, _res, _body) => {
-      if (!err) {
-        console.log('Message sent!');
-      } else {
-        console.error('Unable to send message:' + err);
-      }
-    });
   }
 
-  // listen for requests :)
-  var listener = app.listen(process.env.PORT, function() {
-    console.log('Your app is listening on port ' + listener.address().port);
+  // Send the response message
+  callSendAPI(senderPsid, response);
+}
+
+// Handles messaging_postbacks events
+function handlePostback(senderPsid, receivedPostback) {
+  let response;
+
+  // Get the payload for the postback
+  let payload = receivedPostback.payload;
+
+  // Set the response based on the postback payload
+  if (payload === 'yes') {
+    response = { 'text': 'click this link!' };
+  } else if (payload === 'no') {
+    response = { 'text': 'address here' };
+  }
+  // Send the message to acknowledge the postback
+  callSendAPI(senderPsid, response);
+}
+
+// Sends response messages via the Send API
+function callSendAPI(senderPsid, response) {
+
+  // The page access token we have generated in your app settings
+  const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+
+  // Construct the message body
+  let requestBody = {
+    'recipient': {
+      'id': senderPsid
+    },
+    'message': response
+  };
+
+  // Send the HTTP request to the Messenger Platform
+  request({
+    'uri': 'https://graph.facebook.com/v2.6/me/messages',
+    'qs': { 'access_token': PAGE_ACCESS_TOKEN },
+    'method': 'POST',
+    'json': requestBody
+  }, (err, _res, _body) => {
+    if (!err) {
+      console.log('Message sent!');
+    } else {
+      console.error('Unable to send message:' + err);
+    }
   });
+}
+
+// listen for requests :)
+var listener = app.listen(process.env.PORT, function() {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
