@@ -121,6 +121,14 @@ function handleMessage(senderPsid, receivedMessage) {
         }
       }
     }
+  }else if(receivedMessage.text === "Show branches"){
+    response = {
+      'text': `Here's our branches awhudhwaudha`
+    };
+  }else if(receivedMessage.text === "Schedule an appointment..."){
+    response = {
+      'text': `Click this link`
+    };
   }
 
   // } else if (receivedMessage.attachments) {
@@ -164,10 +172,11 @@ function handlePostback(senderPsid, receivedPostback) {
 
   // Get the payload for the postback
   let payload = receivedPostback.payload;
+  console.log(payload)
 
   // Set the response based on the postback payload
   if (payload === 'schedule') {
-    response = { 'text': 'click this link bitch!' };
+    response = { 'text': 'click this link!' };
   } else if (payload === 'branches') {
     response = { 'text': `Here's our branches` };
   }
