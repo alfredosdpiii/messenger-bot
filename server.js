@@ -124,7 +124,6 @@ function handleMessage(senderPsid, receivedMessage) {
       }
     }
   }
-}
 
 // } else if (receivedMessage.attachments) {
 //
