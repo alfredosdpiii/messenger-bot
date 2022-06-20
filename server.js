@@ -94,7 +94,6 @@ function handleMessage(senderPsid, receivedMessage) {
   if (receivedMessage.message) {
 
     // Get the URL of the message attachment
-    let attachmentUrl = receivedMessage.attachments[0].payload.url;
     response = {
       'attachment': {
         'type': 'template',
