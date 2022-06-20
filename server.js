@@ -149,10 +149,11 @@ function handlePostback(senderPsid, receivedPostback) {
               {
                 'type': 'postback',
                 'title': 'Branch 1!',
-                'payload': 'yes',
+                'payload': 'Schedule1',
               },
             ],
-          }, {
+          },
+          {
             'title': 'Please select a button?',
             'subtitle': 'Tap a button to answer.',
             'image_url': 'https://preview.redd.it/ilrnf174s7291.png?auto=webp&s=7b46a8c013080a4ed6ba995129fdc3babd4a7226',
@@ -163,14 +164,14 @@ function handlePostback(senderPsid, receivedPostback) {
                 'payload': 'Schedule2',
               },
             ],
-          }
-          ]
+          }]
         }
       }
     }
     // Send the message to acknowledge the postback
     callSendAPI(senderPsid, response);
   }
+}
 
   // Sends response messages via the Send API
   function callSendAPI(senderPsid, response) {
